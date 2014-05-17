@@ -27,9 +27,9 @@
 
 <h2>License</h2>
 
-<p>This tool has been developed by <a href="http://en.wikipedia.org/wiki/User:Emijrp">emijrp</a>. Report any error <a href="http://en.wikipedia.org/wiki/User_talk:Emijrp">here</a>.</p>
+<p>This tool has been developed by <a href="https://wikitech.wikimedia.org/wiki/User:Emijrp">emijrp</a>. Report any error <a href="https://wikitech.wikimedia.org/wiki/User_talk:Emijrp">here</a>.</p>
 
-<p>The "<a href="http://code.google.com/p/toolserver/source/browse/#svn%2Ftrunk%2Fwmcharts%2Fcode">source code</a>" is available under <a href="http://www.gnu.org/licenses/gpl.html">GPLv3</a>. The "charts" and "CSV data" are <a href="http://creativecommons.org/publicdomain/zero/1.0/">public domain</a>.</p>
+<p>The "<a href="https://github.com/emijrp/wmcharts">source code</a>" is available under <a href="http://www.gnu.org/licenses/gpl.html">GPLv3</a>. The "charts" and "CSV data" are <a href="http://creativecommons.org/publicdomain/zero/1.0/">public domain</a>.</p>
 
 <h2>Acknowledgements</h2>
 <p>These charts have been created using some marvellous libraries: <a href="http://code.google.com/p/flot/">flot</a> and <a href="http://code.google.com/p/flotr/">flotr</a>.</p>
