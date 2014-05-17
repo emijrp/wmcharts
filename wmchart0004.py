@@ -17,31 +17,35 @@
 from wmchart0000 import *
 
 def main():
-    filename = 'wmchart0003.php'
-    title = 'File uploads'
-    description = "This chart shows how many files have been uploaded in the last days."
+    filename = 'wmchart0004.php'
+    title = 'Deletions and restorations'
+    description = "This chart shows how many deletions and restorations were made in the last days."
 
     projectdbs = getProjectDatabases()
 
     queries = [
-        ["Uploads", "SELECT CONCAT(YEAR(log_timestamp),'-',LPAD(MONTH(log_timestamp),2,'0'),'-',LPAD(DAY(log_timestamp),2,'0'),'T00:00:00Z') AS date, COUNT(*) AS count FROM logging WHERE log_timestamp>=DATE_ADD(NOW(), INTERVAL -%d DAY) AND log_action='upload' GROUP BY date ORDER BY date ASC" % (lastdays)],
+        ["Deletions", "SELECT CONCAT(YEAR(log_timestamp),'-',LPAD(MONTH(log_timestamp),2,'0'),'-',LPAD(DAY(log_timestamp),2,'0'),'T00:00:00Z') AS date, COUNT(*) AS count FROM logging WHERE log_timestamp>=DATE_ADD(NOW(), INTERVAL -%d DAY) AND log_action='delete' GROUP BY date ORDER BY date ASC" % (lastdays)],
+        ["Restorations", "SELECT CONCAT(YEAR(log_timestamp),'-',LPAD(MONTH(log_timestamp),2,'0'),'-',LPAD(DAY(log_timestamp),2,'0'),'T00:00:00Z') AS date, COUNT(*) AS count FROM logging WHERE log_timestamp>=DATE_ADD(NOW(), INTERVAL -%d DAY) AND log_action='restore' GROUP BY date ORDER BY date ASC" % (lastdays)],
     ]
     projects = runQueries(projectdbs=projectdbs, queries=queries)
     select = generateHTMLSelect(projects)
 
     var1 = []
+    var2 = []
     for project, values in projects:
-        var1.append(values["Uploads"])
+        var1.append(values["Deletions"])
+        var2.append(values["Restorations"])
 
     js = """function p() {
         var d1 = %s;
+        var d2 = %s;
         var placeholder = $("#placeholder");
         var selected = document.getElementById('projects').selectedIndex;
-        var data = [{ data: d1[selected], label: "Uploads"}];
-        var options = { xaxis: { mode: "time" }, lines: {show: true}, points: {show: true}, legend: {noColumns: 1}, grid: { hoverable: true }, };
+        var data = [{ data: d1[selected], label: "Deletions"}, { data: d2[selected], label: "Restorations"}];
+        var options = { xaxis: { mode: "time" }, lines: {show: true}, points: {show: true}, legend: {noColumns: 2}, grid: { hoverable: true }, };
         $.plot(placeholder, data, options);
     }
-    p();""" % (str(var1))
+    p();""" % (str(var1), str(var2))
 
     output = generateHTML(title=title, description=description, select=select, js=js)
     writeHTML(filename=filename, output=output)
