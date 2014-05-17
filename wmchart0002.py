@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Copyright (C) 2014 emijrp <emijrp@gmail.com>
+# Copyright (C) 2011 emijrp <emijrp@gmail.com>
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
@@ -17,16 +17,16 @@
 from wmchart0000 import *
 
 def main():
-    filename = 'wmchart0001.php'
-    title = 'Recent changes'
-    description = "This chart shows the recent changes edit rate in the last days."
+    filename = 'wmchart0002.php'
+    title = 'New pages'
+    description = "This chart shows how many pages have been created in the last days."
 
     projectdbs = getProjectDatabases()
 
     queries = [
-        ["All", "SELECT CONCAT(YEAR(rc_timestamp),'-',LPAD(MONTH(rc_timestamp),2,'0'),'-',LPAD(DAY(rc_timestamp),2,'0'),'T00:00:00Z') AS date, COUNT(*) AS count FROM recentchanges WHERE rc_timestamp>=DATE_ADD(NOW(), INTERVAL -%d DAY) AND rc_type<=1 GROUP BY date ORDER BY date ASC" % (lastdays)],
-        ["Bots", "SELECT CONCAT(YEAR(rc_timestamp),'-',LPAD(MONTH(rc_timestamp),2,'0'),'-',LPAD(DAY(rc_timestamp),2,'0'),'T00:00:00Z') AS date, COUNT(*) AS count FROM recentchanges WHERE rc_timestamp>=DATE_ADD(NOW(), INTERVAL -%d DAY) AND rc_type<=1 AND rc_bot=1 GROUP BY date ORDER BY date ASC" % (lastdays)],
-        ["Humans", "SELECT CONCAT(YEAR(rc_timestamp),'-',LPAD(MONTH(rc_timestamp),2,'0'),'-',LPAD(DAY(rc_timestamp),2,'0'),'T00:00:00Z') AS date, COUNT(*) AS count FROM recentchanges WHERE rc_timestamp>=DATE_ADD(NOW(), INTERVAL -%d DAY) AND rc_type<=1 AND rc_bot=0 GROUP BY date ORDER BY date ASC" % (lastdays)],
+        ["All", "SELECT CONCAT(YEAR(rc_timestamp),'-',LPAD(MONTH(rc_timestamp),2,'0'),'-',LPAD(DAY(rc_timestamp),2,'0'),'T00:00:00Z') AS date, COUNT(*) AS count FROM recentchanges WHERE rc_timestamp>=DATE_ADD(NOW(), INTERVAL -%d DAY) AND rc_new=1 AND rc_namespace=0 AND rc_new_len>=100 GROUP BY date ORDER BY date ASC" % (lastdays)],
+        ["Bots", "SELECT CONCAT(YEAR(rc_timestamp),'-',LPAD(MONTH(rc_timestamp),2,'0'),'-',LPAD(DAY(rc_timestamp),2,'0'),'T00:00:00Z') AS date, COUNT(*) AS count FROM recentchanges WHERE rc_timestamp>=DATE_ADD(NOW(), INTERVAL -%d DAY) AND rc_new=1 AND rc_namespace=0 AND rc_new_len>=100 AND rc_bot=1 GROUP BY date ORDER BY date ASC" % (lastdays)],
+        ["Humans", "SELECT CONCAT(YEAR(rc_timestamp),'-',LPAD(MONTH(rc_timestamp),2,'0'),'-',LPAD(DAY(rc_timestamp),2,'0'),'T00:00:00Z') AS date, COUNT(*) AS count FROM recentchanges WHERE rc_timestamp>=DATE_ADD(NOW(), INTERVAL -%d DAY) AND rc_new=1 AND rc_namespace=0 AND rc_new_len>=100 AND rc_bot=0 GROUP BY date ORDER BY date ASC" % (lastdays)],
     ]
     projects = runQueries(projectdbs=projectdbs, queries=queries)
     select = generateHTMLSelect(projects)
@@ -46,7 +46,7 @@ def main():
         var placeholder = $("#placeholder");
         var selected = document.getElementById('projects').selectedIndex;
         var data = [{ data: d1[selected], label: "All"}, { data: d2[selected], label: "Bots"}, { data: d3[selected], label: "Humans"}];
-        var options = { xaxis: { mode: "time" }, lines: { show: true }, points: { show: true }, legend: { noColumns: 3 }, grid: { hoverable: true }, };
+        var options = { xaxis: { mode: "time" }, lines: {show: true}, points: {show: true}, legend: {noColumns: 3}, grid: { hoverable: true }, };
         $.plot(placeholder, data, options);
     }
     p();""" % (str(var1), str(var2), str(var3))
