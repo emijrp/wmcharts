@@ -19,7 +19,19 @@ import MySQLdb
 import os
 import time
 
-families = ["wikibooks", "wikipedia", "wiktionary", "wikimedia", "wikiquote", "wikisource", "wikinews", "wikiversity", "commons", "wikispecies"]
+families = [
+    "commons", 
+    "wikibooks", 
+    "wikispecies", 
+    "wikimedia", 
+    "wikinews", 
+    "wikipedia", 
+    "wikiquote", 
+    "wikisource", 
+    "wikiversity", 
+    "wikivoyage", 
+    "wiktionary", 
+    ]
 lastdays = 22 #3 weeks
 
 def convert2unix(mwtimestamp):
