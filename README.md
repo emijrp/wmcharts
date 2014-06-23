@@ -13,3 +13,7 @@ A collection of charts about Wikimedia projects, including activity on recent ch
 * **wmchart0007.py**:
 * **wmchart0008.py**:
 * **wmchart0009.py**:
+
+See demo: http://tools.wmflabs.org/wmcharts/
+
+![alt text](https://raw.githubusercontent.com/emijrp/wmcharts/master/wmchart0013.png)
