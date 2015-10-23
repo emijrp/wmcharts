@@ -14,6 +14,6 @@ A collection of charts about Wikimedia projects, including activity on recent ch
 * **wmchart0008.py**:
 * **wmchart0009.py**:
 
-It is available in http://tools.wmflabs.org/wmcharts/
+It is available in https://tools.wmflabs.org/wmcharts/
 
 ![alt text](https://raw.githubusercontent.com/emijrp/wmcharts/master/wmchart0013.png)
