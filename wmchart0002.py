@@ -19,7 +19,7 @@ from wmchart0000 import *
 def main():
     filename = 'wmchart0002.php'
     title = 'New pages'
-    description = "This chart shows how many pages have been created in the last days."
+    description = "This chart shows how many articles (pages in namespace=0) have been created in the last days."
 
     projectdbs = getProjectDatabases()
 
